@@ -17,7 +17,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cenkalti/backoff"
 	"github.com/google/go-querystring/query"
 )
 
@@ -49,8 +48,6 @@ type Client struct {
 
 	headers map[string]string
 
-	b backoff.BackOff
-
 	Boot     BootService
 	Ordering OrderingService
 	Reset    ResetService
@@ -62,13 +59,12 @@ type Client struct {
 
 func NewClient(username, password string) *Client {
 	c := &Client{}
-	c.client = &http.Client{Timeout: time.Second * 10}
+	c.client = &http.Client{Timeout: time.Second * 120}
 	c.BaseURL = DefaultEndpoint
 	c.headers = map[string]string{
 		"Authorization": "Basic " + base64.StdEncoding.EncodeToString([]byte(username+":"+password)),
 	}
 	c.UserAgent = UserAgent
-	c.b = NewExponentialBackOff()
 
 	c.Boot = &BootServiceImpl{client: c}
 	c.Ordering = &OrderingServiceImpl{client: c}
@@ -82,11 +78,6 @@ func NewClient(username, password string) *Client {
 
 func (c *Client) WithUserAgent(ua string) *Client {
 	c.UserAgent = ua
-	return c
-}
-
-func (c *Client) WithBackOff(b backoff.BackOff) *Client {
-	c.b = b
 	return c
 }
 
@@ -168,18 +159,14 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 		fmt.Println(req.URL.String())
 	}
 
-	err = backoff.Retry(func() error {
-		resp, err = c.client.Do(req)
-		if err != nil {
-			return err
-		}
-		if c := resp.StatusCode; c == 500 || c >= 502 && c <= 599 {
-			// Avoid retry on 501: Not Implemented
-			err = &status5xx{}
-		}
-		return err
-	}, c.b)
-	c.b.Reset()
+	resp, err = c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if c := resp.StatusCode; c == 500 || c >= 502 && c <= 599 {
+		// Avoid retry on 501: Not Implemented
+		err = &status5xx{}
+	}
 
 	if err != nil {
 		if _, ok := err.(*status5xx); !ok {
