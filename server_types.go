@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 package hetzner
 
 import . "github.com/appscode/go/encoding/json/types"
