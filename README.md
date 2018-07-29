@@ -2,11 +2,11 @@
 
 # go-hetzner
 
-Golang client for Hetzner
+Golang client library for [Hetzner API](https://robot.your-server.de/doc/webservice/en.html).
 
-## API Documentation
+## Usage examples
 
-https://robot.your-server.de/doc/webservice/en.html
+[examples](./examples)
 
 ## Changelog
 
