@@ -2,8 +2,6 @@
 
 package hetzner
 
-import . "github.com/appscode/go/encoding/json/types"
-
 type ServerSummary struct {
 	ServerIP     string `json:"server_ip"`
 	ServerNumber int    `json:"server_number"`
@@ -40,13 +38,13 @@ type ServerUpdateRequest struct {
 }
 
 type Cancellation struct {
-	ServerIP                 string        `json:"server_ip"`
-	ServerNumber             int           `json:"server_number"`
-	ServerName               string        `json:"server_name"`
-	EarliestCancellationDate string        `json:"earliest_cancellation_date"`
-	Cancelled                bool          `json:"cancelled"`
-	CancellationDate         string        `json:"cancellation_date"`
-	CancellationReason       ArrayOrString `json:"cancellation_reason"`
+	ServerIP                 string   `json:"server_ip"`
+	ServerNumber             int      `json:"server_number"`
+	ServerName               string   `json:"server_name"`
+	EarliestCancellationDate string   `json:"earliest_cancellation_date"`
+	Cancelled                bool     `json:"cancelled"`
+	CancellationDate         string   `json:"cancellation_date"`
+	CancellationReason       []string `json:"cancellation_reason"`
 }
 
 type CancelServerRequest struct {
