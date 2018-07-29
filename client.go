@@ -21,11 +21,8 @@ import (
 )
 
 const (
-	// Version of this library
-	Version = "0.1.0"
-
-	// User agent for this library
-	UserAgent = "appscode/" + Version
+	// UserAgent contains user agent identifier
+	UserAgent = "gtrafimenkov/go-hetzner"
 
 	// DefaultEndpoint to be used
 	DefaultEndpoint = "https://robot-ws.your-server.de"

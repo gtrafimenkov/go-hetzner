@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - HTTP operation timeout changed from 10 to 120 seconds
+- User agent identifier
 
 ### Removed
 
