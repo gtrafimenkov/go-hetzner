@@ -19,7 +19,7 @@ type APIError struct {
 
 	// Array of missing input parameters or null
 	Missing []string `json:"missing"`
-	// Array of invalid input paramaters or null
+	// Array of invalid input parameters or null
 	Invalid []string `json:"invalid"`
 
 	// Maximum allowed requests

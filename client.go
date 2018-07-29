@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	// Version of this libary
+	// Version of this library
 	Version = "0.1.0"
 
 	// User agent for this library
