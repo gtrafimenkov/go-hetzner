@@ -8,6 +8,10 @@ Golang client for Hetzner
 
 https://robot.your-server.de/doc/webservice/en.html
 
+## Changelog
+
+[changelog.md](./changelog.md)
+
 ## License
 
 Apache 2.0
