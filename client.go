@@ -57,6 +57,7 @@ type Client struct {
 	Server   ServerService
 	SSHKey   SSHKeyService
 	VServer  VServerService
+	Failover FailoverService
 }
 
 func NewClient(username, password string) *Client {
@@ -75,6 +76,7 @@ func NewClient(username, password string) *Client {
 	c.Server = &ServerServiceImpl{client: c}
 	c.SSHKey = &SSHKeyServiceImpl{client: c}
 	c.VServer = &VServerServiceImpl{client: c}
+	c.Failover = &failoverServiceImpl{client: c}
 	return c
 }
 
